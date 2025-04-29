@@ -10,7 +10,7 @@
 - download brew and run ```brew install tesseract```
 
 ## Start
-- to start the script use `` python blooket_helper.py`` or ```python3 blooket_helper.py``` on MacOS
+- to start the script use ```python blooket_helper.py``` or ```python3 blooket_helper.py``` on MacOS
 
 ## Usage
 - once you start the script, You have to select five boxes..
