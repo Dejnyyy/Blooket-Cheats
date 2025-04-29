@@ -76,45 +76,6 @@ def find_correct_answer(answers):
         return None
 
 
-def detect_green_or_red_screen():
-    screenshot = pyautogui.screenshot()
-    pixels = screenshot.getdata()
-    color_counter = Counter()
-
-    for pixel in pixels:
-        r, g, b = pixel[:3]
-        if g > 150 and r < 100 and b < 100:
-            color_counter['green'] += 1
-        elif r > 150 and g < 100 and b < 100:
-            color_counter['red'] += 1
-
-    green = color_counter['green']
-    red = color_counter['red']
-
-    print(f"🌈 Green pixels: {green}, Red pixels: {red}")
-
-    total = green + red
-    if total == 0:
-        return None
-
-    green_ratio = green / total
-    red_ratio = red / total
-
-    if green_ratio > 0.6:
-        print("✅ Detected mostly GREEN screen (Correct)!")
-        return "correct"
-    elif red_ratio > 0.6:
-        print("❌ Detected mostly RED screen (Incorrect)!")
-        return "incorrect"
-    else:
-        return None
-
-def click_center_screen():
-    width, height = pyautogui.size()
-    pyautogui.moveTo(width // 2, height // 2, duration=0.2)
-    pyautogui.click()
-    print("🖱 Clicked center to move to next question!")
-
 def click_answer(idx, answer_positions):
     try:
         x, y = answer_positions[idx]
@@ -172,13 +133,6 @@ def main():
         if correct_idx:
             click_answer(correct_idx, answer_positions)
             time.sleep(2)  # Let the green/red screen load
-
-            for _ in range(10):  # Check for up to 5 seconds
-                result = detect_green_or_red_screen()
-                if result:
-                    click_center_screen()
-                    break
-                time.sleep(0.5)  # Small pause before checking again
         else:
             print("❌ No matching answer found.")
 
